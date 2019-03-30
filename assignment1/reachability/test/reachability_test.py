@@ -12,9 +12,9 @@ def reach(x, y):
 
 def explore(v):
     visited[v] = True
-    for y in range(len(adj[v])):
-        if not visited[adj[v][y]]:
-            explore(adj[v][y])
+    for i, vertex in enumerate(adj[v]):
+        if not visited[vertex]:
+            explore(vertex)
     
 def canExitMaze(data):
     global adj
@@ -40,13 +40,15 @@ if __name__ == '__main__':
                4, 3,
                1, 4,
                1, 4,]
-    canExitMaze(caseOne)
+    canExitMaze(caseOne) 
+#    True
     
     caseTwo = [4, 2,
                1, 2,
                3, 2,
                1, 4]
     canExitMaze(caseTwo)
+#    False
 
     caseThree = [7, 5,
                  0, 2,
@@ -56,6 +58,7 @@ if __name__ == '__main__':
                  5, 6,
                  0, 5]
     canExitMaze(caseThree)
+#    True
     
     caseFour =  [7, 5,
                  0, 2,
@@ -65,6 +68,7 @@ if __name__ == '__main__':
                  5, 6,
                  2, 4]
     canExitMaze(caseFour)
+#    False
     
     
     
