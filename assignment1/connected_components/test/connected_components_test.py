@@ -1,21 +1,73 @@
 #Uses python3
 
-import sys
+adj = []
+verticiesCount = 0
+visited = []
+connectedComponent = 0
 
+def number_of_components():
+    global connectedComponent
+    for vertex in range(verticiesCount):
+        if not visited[vertex]:
+            explore(vertex)
+            connectedComponent += 1
+    return connectedComponent
 
-def number_of_components(adj):
-    result = 0
-    #write your code here
-    return result
+def explore(v):
+    visited[v] = True
+    for i, vertex in enumerate(adj[v]):
+        if not visited[vertex]:
+            explore(vertex)
 
-if __name__ == '__main__':
-    input = sys.stdin.read()
-    data = list(map(int, input.split()))
+def arrange_inputs(data):
+    global verticiesCount
+    global adj
+    global visited
+    global connectedComponent
     n, m = data[0:2]
+    verticiesCount = n
+    visited = [False for _ in range(verticiesCount)]
+    connectedComponent = 0
     data = data[2:]
     edges = list(zip(data[0:(2 * m):2], data[1:(2 * m):2]))
     adj = [[] for _ in range(n)]
     for (a, b) in edges:
         adj[a - 1].append(b - 1)
         adj[b - 1].append(a - 1)
-    print(number_of_components(adj))
+        
+def calculate_number_of_components(data):
+    arrange_inputs(data)
+    print(number_of_components())
+
+if __name__ == '__main__':
+    caseOne = [4, 2,
+               1, 2,
+               3, 2]
+    calculate_number_of_components(caseOne)
+#    2
+    
+    caseTwo = [4, 4,
+               1, 2,
+               3, 2,
+               4, 3,
+               1, 4]
+    calculate_number_of_components(caseTwo)
+#    1
+
+    caseFour = [7, 5,
+                0, 2,
+                2, 3,
+                3, 4,
+                1, 5,
+                5, 6]
+    calculate_number_of_components(caseFour)
+#    2
+    
+    caseFive =  [8, 5,
+                 0, 2,
+                 2, 3,
+                 4, 6,
+                 6, 7,
+                 1, 5]
+    calculate_number_of_components(caseFive)
+#    3
