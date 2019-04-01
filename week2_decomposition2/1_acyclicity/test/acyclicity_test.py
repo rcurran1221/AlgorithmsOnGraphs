@@ -22,7 +22,6 @@ def acyclic():
             
     return 0 if is_acyclic else 1
 
-
 def explore(v):
     visited[v] = True
     previsit(v)
