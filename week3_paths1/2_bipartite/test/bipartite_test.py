@@ -4,7 +4,10 @@ import sys
 import queue
 
 def bipartite(adj):
-    dist, colors = bfs(adj, 0)    
+    colors = [None for _ in adj]
+    for v in range(len(adj)):
+        if colors[v] is None:
+            bfs(adj, v, colors) 
     
     is_bipartite = 1
     for u, n in enumerate(adj):
@@ -21,20 +24,16 @@ def get_opposite_color(color):
     if color == 0:
         return 1
 
-def bfs(adj, s):
-    dist = [-1 for _ in adj]
-    colors = [0 for _ in adj]
-    dist[s] = 0
+def bfs(adj, s, colors):
+    colors[s] = 0
     Q = queue.Queue()
     Q.put(s)
     while not Q.empty():
         u = Q.get()
         for v in adj[u]:
-                if dist[v] == -1:
+                if colors[v] is None:
                     Q.put(v)
-                    dist[v] = dist[u] + 1
-                    colors[v] = get_opposite_color(colors[u])
-    return dist, colors
+                    colors[v] = get_opposite_color(colors[u])               
 
 def is_bipartite(data):
     n, m = data[0:2]
@@ -60,3 +59,25 @@ if __name__ == '__main__':
                3,4,
                1,4]
     is_bipartite(caseTwo)
+    
+    caseThree = [6,4,
+                 5,2,
+                 4,2,
+                 3,4,
+                 1,4]
+    is_bipartite(caseThree)
+    
+    caseFour = [100000, 0]
+    is_bipartite(caseFour)
+    
+#    two bipartite separate components
+    caseFive = [10,8,
+                5,2,
+                4,2,
+                3,4,
+                1,4,
+                6,9,
+                8,9,
+                9,7,
+                7,10]
+    is_bipartite(caseFive)
