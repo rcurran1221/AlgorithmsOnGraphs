@@ -12,7 +12,7 @@ def distance(adj, cost, s, t):
     h = queue.PriorityQueue()
     for v, d in enumerate(dist):
         h.put((v, d))
-    while h:
+    while h and all(i != 0 for i in valid):
         u, d = h.get()
         if valid[u] == 0:
             continue
