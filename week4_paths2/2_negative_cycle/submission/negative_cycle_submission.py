@@ -4,7 +4,23 @@ import sys
 
 
 def negative_cycle(adj, cost):
-    #write your code here
+    dist = [sys.maxsize for _ in range(len(adj))]
+    prev = [None for _ in range(len(adj))]
+    
+    dist[0] = 0
+    
+    for i in range(len(adj)-1):
+        for u, a in enumerate(adj):
+            for i, v in enumerate(a):
+                if dist[v] > dist[u] + cost[u][i]:
+                    dist[v] = dist[u] + cost[u][i]
+                    prev[v] = u
+    
+    for u, a in enumerate(adj):
+            for i, v in enumerate(a):
+                if dist[v] > dist[u] + cost[u][i]:
+                    return 1
+    
     return 0
 
 
